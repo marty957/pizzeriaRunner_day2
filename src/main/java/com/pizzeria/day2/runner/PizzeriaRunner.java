@@ -55,6 +55,7 @@ public class PizzeriaRunner implements CommandLineRunner {
 
         menu.printMenu();
         System.out.println(o1);
+        o1.printOrder();
 
 
 
