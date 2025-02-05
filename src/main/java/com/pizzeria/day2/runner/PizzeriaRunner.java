@@ -6,7 +6,9 @@ import com.pizzeria.day2.Enumaration.StatoTv;
 import com.pizzeria.day2.model.*;
 import com.pizzeria.day2.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -15,6 +17,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Component
+@PropertySource("application.properties")
 public class PizzeriaRunner implements CommandLineRunner {
     @Autowired private MenuService menuService;
     @Autowired private TavoloService tavoloService;
@@ -23,7 +26,7 @@ public class PizzeriaRunner implements CommandLineRunner {
     @Autowired private ToppingsService toppingsService;
     @Autowired private PizzaService pizzaService;
 
-
+    @Value("${costo.coperto}") private int costoCoperto;
     @Override
     public void run(String... args) throws Exception {
 
@@ -50,7 +53,7 @@ public class PizzeriaRunner implements CommandLineRunner {
 
         Ordine o1=ordineService.createOrder().builder().numeroOrdine(1).tavolo(tavolo1)
                 .statoOrdine(StatoOrdine.INCORSO).numeroCoperti(3).oraOrdinazione(LocalDateTime.now()).
-                articoliOrdinati(ArticoliOrdinati).costoTotale(160).build();
+                articoliOrdinati(ArticoliOrdinati).costoTotale(costoCoperto).build();
 
 
         menu.printMenu();

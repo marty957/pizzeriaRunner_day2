@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 
 ;
 import java.time.LocalDateTime;
@@ -14,6 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 @Builder
+@PropertySource("application.properties")
 public class Ordine {
 
     private int numeroOrdine;
@@ -24,6 +27,16 @@ public class Ordine {
     private LocalDateTime oraOrdinazione;
     private int costoTotale;
 
+
+    @Value("${costo.coperto}") private int costoCoperto;
+
+
+
+    public double costo(){
+       double costoArticoli= this.articoliOrdinati.stream().mapToDouble(Article::getPrice).sum();
+
+       return costoArticoli + (costoCoperto*this.numeroCoperti);
+    }
 
   public void printOrder(){
       int numeroTavolo = this.tavolo.getNumeroTavolo();
@@ -50,7 +63,7 @@ public class Ordine {
           }
       });
 
-      System.out.println("Totale da Pagare: " + this.costoTotale);
+      System.out.println("Totale da Pagare: " +costo());
 
   }
 }
