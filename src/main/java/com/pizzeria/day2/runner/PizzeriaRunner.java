@@ -19,6 +19,7 @@ import java.util.List;
 @Component
 @PropertySource("application.properties")
 public class PizzeriaRunner implements CommandLineRunner {
+
     @Autowired private MenuService menuService;
     @Autowired private TavoloService tavoloService;
     @Autowired private OrdineService ordineService;
@@ -30,6 +31,9 @@ public class PizzeriaRunner implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
+        Topping t1=toppingsService.tomato();
+        Topping t2=toppingsService.cheese();
+        Topping t3=toppingsService.salami();
         List<Article> ArticoliOrdinati=new ArrayList();
 
         Pizza p1=pizzaService.salamiPizza();
@@ -37,8 +41,16 @@ public class PizzeriaRunner implements CommandLineRunner {
 
         Drink d1=drinkService.water();
         Drink d2=drinkService.lemonade();
+   /*     toppingsService.insertTopping(t1);
+        toppingsService.insertTopping(t2);
+        toppingsService.insertTopping(t3);*/
 
-        Topping t1=toppingsService.tomato();
+//        pizzaService.insertPizza(p1);
+        /*pizzaService.insertPizza(p2);*/
+
+      /*  drinkService.insertDrink(d1);
+        drinkService.insertDrink(d2);*/
+
         ArticoliOrdinati.addAll(Arrays.asList(p1,p2,d1,d2,t1));
 
         Menu menu=menuService.createMenu();
@@ -46,9 +58,6 @@ public class PizzeriaRunner implements CommandLineRunner {
         Tavolo tavolo1=tavoloService.createTable().builder().numeroTavolo(1).numeroMaxCoperti(4).stato(StatoTv.OCCUPATO).build();
         Tavolo tavolo2=tavoloService.createTable().builder().numeroTavolo(2).numeroMaxCoperti(2).stato(StatoTv.OCCUPATO).build();
         Tavolo tavolo3=tavoloService.createTable().builder().numeroTavolo(3).numeroMaxCoperti(6).stato(StatoTv.LIBERO).build();
-
-
-
 
 
         Ordine o1=ordineService.createOrder().builder().numeroOrdine(1).tavolo(tavolo1)
@@ -59,6 +68,8 @@ public class PizzeriaRunner implements CommandLineRunner {
         menu.printMenu();
         System.out.println(o1);
         o1.printOrder();
+
+
 
 
 

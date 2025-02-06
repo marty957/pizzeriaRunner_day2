@@ -10,6 +10,9 @@ public abstract class Article {
         this.price = price;
     }
 
+    public Article() {
+    }
+
     public int getCalories() {
         return calories;
     }

@@ -33,8 +33,8 @@ public class MenuConfig {
     @Bean(name = "pizza_margherita")
     public Pizza pizzaMargheritaBean() {
         Pizza p = new Pizza(1104, 4.99, "Pizza Margherita");
-        p.addTopping(toppingTomato());
-        p.addTopping(toppingCheese());
+        p.addTopping(new Topping(60,4.5,"TOMATO"));
+        p.addTopping(new Topping(32,1.25,"CHEESE"));
         return p;
     }
 
